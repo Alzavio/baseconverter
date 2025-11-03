@@ -18,17 +18,24 @@ def main(number, original_base, resulting_base):
         print("Invalid base number")
         return ''
 
-    if number < 0:
+    try:
+        number = float(number)
+        if not number.is_integer() or number < 0:
+            print("Invalid number")
+            return ''
+        number = int(number)
+        print(number)
+    except:
+        # If it fails, it's not a number at all, which is expected for high bases
+        print("Not a number, continuing")
+        pass
+
+    if str(number).isdigit() and number <= 0:
         print("Invalid number")
         return ''
 
-    if number == 0:
-        print("0")
-        return ''
-
     # Convert to base 10 for re-conversion
-    if original_base != 10:
-        number = int(number, base=original_base)
+    number = int(str(number), base=original_base)
 
     # If the desired result is base 10, return number
     if resulting_base == 10:
@@ -42,7 +49,7 @@ def main(number, original_base, resulting_base):
     return new_number
 
 
-number = int(input("Enter number: "))
+number = input("Enter number: ")
 original_base = int(input("Enter original base number (2-16): "))
 resulting_base = int(input("Enter resulting base number (2-16): "))
-main(number, original_base, resulting_base)
+print(main(number, original_base, resulting_base))
